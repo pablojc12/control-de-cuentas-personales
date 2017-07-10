@@ -1,0 +1,57 @@
+
+<!-- Main jumbotron for a primary marketing message or call to action -->
+<div class="panel panel-primary" ng-if="valueSearch !== ''">
+    <div class="panel-heading"><h2>Resultados de busqueda</h2></div>
+    <div class="panel-body">
+        <div class="container-fluid table-responsive">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th class="text-uppercase">Nombre</th>
+                        <th class="text-uppercase">Correo</th>
+                        <th class="text-uppercase">Telefono</th>
+                        <th class="text-uppercase">Cuenta</th>
+                        <th class="text-uppercase">Usuario</th>
+                        <th class="text-uppercase">Contraseña</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="user in users| filter: valueSearch">
+                        <th>
+                            <p>
+                                <span 
+                                        class="btn btn-success glyphicon glyphicon-plus btn-xs"
+                                        title="Agregar cuentas a {{user.email}}"
+                                        ng-click="showModalNewAcount(user.email)"></span>
+                                    <span 
+                                        class="btn btn-xs btn-primary glyphicon glyphicon-pencil" 
+                                        title="Editar usuario {{user.email}}"
+                                        ng-click="updateUser({email: user.email, name: user.name, lastName: user.lastName, phone: user.phone})"></span>
+                                    <span 
+                                        class="btn btn-xs btn-danger glyphicon glyphicon-remove" 
+                                        title="Eliminar usuario {{user.email}}" 
+                                        ng-click="deleteUser(user.email)"></span>
+                            </p></th>
+                        <th>{{user.name}} {{user.lastName}}</th>
+                        <th>{{user.email}}</th>
+                        <th>{{user.phone}}</th>
+                        <th><p ng-repeat="idAcount in user[0]">{{idAcount.idAcount}}</p></th>
+                        <th><p ng-repeat="userAcount in user[0]">{{userAcount.user}}</p></th>
+                        <th><p ng-repeat="passAcount in user[0]">{{passAcount.pass}}</p></th>
+                        <th>
+                            <div ng-repeat="idDet in user[0]">
+                                <p>
+                                    <span class="btn btn-xs btn-warning glyphicon glyphicon-minus" 
+                                        title="Eliminar cuenta {{idDet.idAcount}}" 
+                                        ng-click="deleteDetail({id:idDet.idDetail, acount:idDet.idAcount, user:idDet.user, pass:idDet.pass})"></span>
+                                </p>
+                            </div>
+                        </th>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

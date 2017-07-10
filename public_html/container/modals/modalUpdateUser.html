@@ -1,0 +1,58 @@
+<div id="modalUpdateUser" class="modal fade" tabindex="-1" role="dialog">    
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="resetNewUser()"><span aria-hidden="true">&times;</span></button>
+                <h3 class="modal-title text-center"><strong>Actualizar Usuario</strong></h3>
+            </div>
+            <form ng-submit="modalActionSubmit(valueFunction)">
+                <div class="modal-body">
+
+                    <div class="row">
+                        <div class="col-md-6 form-group">
+                            <label for="name">Nombre(s)</label>
+                            <input id="name" 
+                                   type="text" 
+                                   class="form-control" 
+                                   ng-model="newUser.name"
+                                   required>
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label for="lastName">Apellido(s)</label>
+                            <input id="lastName" 
+                                   type="text" 
+                                   class="form-control" 
+                                   ng-model="newUser.lastName"
+                                   required>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 form-group">
+                            <label for="email">Correo</label>
+                            <input id="email" 
+                                   type="email" 
+                                   class="form-control" 
+                                   disabled
+                                   ng-model="newUser.email"
+                                   required>
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label for="phone">Telefono</label>
+                            <input id="phone" 
+                                   type="tel" 
+                                   class="form-control" 
+                                   ng-model="newUser.phone"
+                                   required
+                                   pattern="[0-9]{8,10}">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="resetNewUser()">Cancelar</button>
+                    <button type="submit" class="btn btn-primary text-uppercase">Actualizar usuario</button>
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

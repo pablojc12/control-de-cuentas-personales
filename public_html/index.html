@@ -1,0 +1,137 @@
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="" ng-app="acount"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Acounts TG</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="apple-touch-icon" href="img/logo.png">
+        <link rel="icon" type="image/png" href="img/logo.png"/>
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <style>
+            body {
+                padding-top: 50px;
+                padding-bottom: 20px;
+            }
+        </style>
+        <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="css/main.css">
+
+        <script src="js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+    </head>
+    <body ng-controller="ctrlApp">
+        <!--[if lt IE 8]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">Acounts TG</a>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse">
+                    <div class="navbar-form navbar-left form-group">
+                        <input type="text" placeholder="Search for a user" ng-model="valueSearch" class="form-control">
+                    </div>
+                    <div class="navbar-form navbar-right">
+                        <button type="button" class="btn btn-primary" ng-click="saveUser()"><span class="glyphicon glyphicon-plus">
+                            </span> Nuevo Usuario
+                        </button>
+                    </div>
+                </div><!--/.navbar-collapse -->
+            </div>
+        </nav>
+        
+        <ng-include src="modalNewAcount"></ng-include> <!-- Ventana modal para Agregar Cuentas -->
+        <ng-include src="modalUpdateUser"></ng-include> <!-- Ventana modal para Actualizar Usuario -->
+        <ng-include src="modalAction"></ng-include> <!-- Ventana modal para Acciones -->
+        <ng-include src="alertModal"></ng-include> <!-- Ventana modal para alertas -->
+        <ng-include src="newUserContainer"></ng-include> <!-- Controlador dentro de la carpeta container -->
+        <ng-include src="searchContainer"></ng-include> <!-- Utiliza el controlador padre ctrlApp -->
+        <ng-include src="modalLoader"></ng-include> <!-- Ventana modal Loader -->
+
+        <div class="container-fluid" ng-init="remakeUser()">
+            
+            <div class="table-responsive">
+                <table class="table table-striped table-hover">
+                    <caption><h2>Cuentas</h2></caption>
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Nombre</th>
+                            <th>Correo</th>
+                            <th>Telefono</th>
+                            <th>Cuenta</th>
+                            <th>Usuario</th>
+                            <th>Contraseña</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="user in users">
+                            <th>
+                                <p>
+                                    <span 
+                                        class="btn btn-success glyphicon glyphicon-plus btn-xs"
+                                        data-toggle="tooltip" data-placement="bottom"
+                                        title="Agregar cuentas a {{user.email}}"
+                                        ng-click="showModalNewAcount(user.email)"></span>
+                                    <span 
+                                        class="btn btn-xs btn-primary glyphicon glyphicon-pencil" 
+                                        data-toggle="tooltip" data-placement="bottom"
+                                        title="Editar usuario {{user.email}}"
+                                        ng-click="updateUser({email: user.email, name: user.name, lastName: user.lastName, phone: user.phone})"></span>
+                                    <span 
+                                        class="btn btn-xs btn-danger glyphicon glyphicon-remove" 
+                                        data-toggle="tooltip" data-placement="bottom"
+                                        title="Eliminar usuario {{user.email}}" 
+                                        ng-click="deleteUser(user.email)"></span>
+                                </p>
+                            </th>
+                            <th>{{user.name}} {{user.lastName}}</th>
+                            <th>{{user.email}}</th>
+                            <th>{{user.phone}}</th>
+                            <th><p ng-repeat="idAcount in user[0]">{{idAcount.idAcount}}</p></th>
+                            <th><p ng-repeat="userAcount in user[0]">{{userAcount.user}}</p></th>
+                            <th><p ng-repeat="passAcount in user[0]">{{passAcount.pass}}</p></th>
+                            <th>
+                                <div ng-repeat="idDet in user[0]">
+                                    <p>
+                                        <span class="btn btn-xs btn-warning glyphicon glyphicon-minus" 
+                                              data-toggle="tooltip" data-placement="bottom"
+                                              title="Eliminar cuenta {{idDet.idAcount}}" 
+                                              ng-click="deleteDetail({id:idDet.idDetail, acount:idDet.idAcount, user:idDet.user, pass:idDet.pass})"></span></p>
+                                </div>
+                            </th>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div> <!-- /container -->
+        
+        <footer>
+            <hr>
+            <div class="container text-center">
+                <p>&copy; <a target="_blank" href="http://topicsguru.com.mx">Topics Gurú</a> 2017</p>
+                <p>Todos los derechos reservados</p>
+            </div>
+        </footer>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
+        <script src="js/vendor/bootstrap.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+        <script src="js/module.js"></script>
+        <script src="js/services.js"></script>
+        <script src="js/ctrlMain.js"></script>
+    </body>
+</html>
